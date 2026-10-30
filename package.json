@@ -1,5 +1,5 @@
 {
-  "name": "splits",
+  "name": "cash-splits",
   "private": true,
   "type": "module",
   "engines": { "node": ">=24.2" },
