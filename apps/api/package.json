@@ -1,10 +1,14 @@
 {
-  "name": "cash-splits",
+  "name": "api",
   "private": true,
   "type": "module",
   "engines": { "node": ">=24.2" },
   "scripts": {
     "start": "node server.js",
     "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "postgres": "^4.0.0"
   }
 }
