@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres # dev only, real secrets in stage 5
+      POSTGRES_DB: cash_splits
+    ports: ["5433:5432"] # 5433: host may already run its own Postgres
+    volumes: [db:/var/lib/postgresql]
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 2s
+      retries: 15
+
+  migrate:
+    image: amacneil/dbmate:2.37
+    command: --no-dump-schema up
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/cash_splits?sslmode=disable
+    volumes: [./apps/api/db:/db]
+    depends_on:
+      db: { condition: service_healthy }
+
+  api:
+    build: ./apps/api
+    ports: ["3001:3000"]
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/cash_splits
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  web:
+    build: ./apps/web
+    ports: ["3000:3000"]
+    environment:
+      API_URL: http://api:3000
+    depends_on: [api]
+
+volumes:
+  db:

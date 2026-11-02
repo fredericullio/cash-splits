@@ -1,0 +1,11 @@
+:root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+main { max-width: 48rem; margin: 2rem auto; padding: 0 1rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.25rem 0.5rem; border-bottom: 1px solid #8884; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+form { display: grid; gap: 0.25rem; max-width: 24rem; }
+label { margin-top: 0.5rem; font-weight: 600; }
+.hint { font-size: 0.85rem; opacity: 0.75; }
+/* error styling only after the user finished with the field */
+input:user-invalid { border-color: #d93025; outline: 2px solid #d93025; }
+button { margin-top: 1rem; justify-self: start; }
